@@ -60,7 +60,7 @@ trap on_term TERM INT
 wait_ready() { # port pid
   for _ in $(seq 1 180); do
     kill -0 "$2" 2>/dev/null || return 1
-    if bun -e "const r=await fetch('http://127.0.0.1:$1/api/auth/ok').catch(()=>null);process.exit(r&&r.ok?0:1)" 2>/dev/null; then
+    if bun -e "const r=await fetch('http://127.0.0.1:$1/api/auth/get-session').catch(()=>null);process.exit(r&&r.ok?0:1)" 2>/dev/null; then
       return 0
     fi
     sleep 1
